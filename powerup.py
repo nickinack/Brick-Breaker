@@ -25,7 +25,7 @@ class Powerup:
     def get_type(self):
         return self.__type
 
-    def delete(self , obj , grid):
+    def delete(self , obj , grid , paddle):
         if self.__type == "expand_paddle" and self.__active == 2:
             obj.reshape_paddle(grid , "expand")
 
@@ -52,6 +52,7 @@ class Powerup:
         if self.__type == "paddle_grab":
             obj.set_xspeed(obj.storage_xspeed)
             obj.set_yspeed(-1*abs(obj.storage_yspeed))
+            paddle.move_ball = 0
 
         if self.__active == 0:
             grid[self.__y][self.__x] = ' '
@@ -87,6 +88,7 @@ class Powerup:
             if self.__type == "paddle_grab":
                 obj.set_xspeed(obj.storage_xspeed)
                 obj.set_yspeed(-1*abs(obj.storage_yspeed))
+                paddle.move_ball = 0
 
             self.__active = -1
             delete_powerup(self)

@@ -103,20 +103,23 @@ class Ball(Object):
                 paddle.clear_paddle(grid)             
                 paddle.set_x(PADDLE_POS_X)             
                 paddle.set_y(PADDLE_POS_Y)
-                paddle.move_paddle(0 , grid)
+                paddle.move_paddle(0 , grid , ball)
                 player.set_lives(player.get_lives() - 1)
                 for i in powerups:
                     if i.get_type() == "expand_paddle":
-                        on_clear(i , paddle , grid)
+                        on_clear(i , paddle , grid , paddle)
 
                     elif i.get_type() == "shrink_paddle":
-                        on_clear(i , paddle , grid)
+                        on_clear(i , paddle , grid , paddle)
 
                     elif i.get_type() == "fast_ball":
-                        on_clear(i , self , grid)
+                        on_clear(i , self , grid , paddle)
 
                     elif i.get_type() == "ball_multiplier":
-                        on_clear(i , ball , grid)
+                        on_clear(i , ball , grid , paddle)
+
+                    elif i.get_type() == "thru_ball":
+                        on_clear(i , ball , grid , paddle)
 
             return
 

@@ -83,7 +83,7 @@ class Brick(Object):
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , np.random.choice(powerup_types)) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -101,7 +101,7 @@ class Brick(Object):
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , np.random.choice(powerup_types)) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -116,7 +116,7 @@ class Brick(Object):
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , np.random.choice(powerup_types)) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()

@@ -66,7 +66,7 @@ while True:
             powerup.move_powerup(board.get_grid() , ball[0] , paddle)
 
         if powerup.get_type() == "paddle_grab" and key == 'f':
-            powerup.delete(ball[0] , board.get_grid())
+            powerup.delete(ball[0] , board.get_grid() , paddle)
 
     os.system('clear')
     for i in ball:
@@ -89,7 +89,7 @@ while True:
     print(Fore.BLUE + "Lives Remaining: " , str(player.get_lives()))
     print(Fore.YELLOW + "Ball Speed: " , str(ball[0].get_yspeed()))
     for i in powerups:
-        print(i.active())
+        print(i.get_type())
     board.display()
     
 

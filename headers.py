@@ -15,6 +15,7 @@ BRICK_START_X_2 = [25]
 BRICK_START_Y_3 = 20
 BRICK_START_X_3 = [33]
 powerup_class = []
+powerup_types = ["ball_multiplier" , "thru_ball" , "paddle_grab" , "expand_paddle" , "shrink_paddle" , "fast_ball"]
 
 def update_powerup(powerup , grid):
     global powerup_class
@@ -30,10 +31,10 @@ def delete_powerup(powerup):
     powerup_class.remove(powerup)
 
 
-def on_clear(powerup , obj , grid):
+def on_clear(powerup , obj , grid , paddle):
     global powerup_class
     powerup_class.remove(powerup)
-    powerup.delete(obj , grid)
+    powerup.delete(obj , grid , paddle)
 
 
 for i in range(1,BRICK_LEVEL_1_NO):
