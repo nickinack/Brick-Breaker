@@ -12,7 +12,28 @@ class Paddle(Object):
         '''
         super(Paddle, self).__init__(POS_X , HEIGHT-POS_Y)
         self.__speed = 2
-        self.__paddle = "$--------$"
+        self.__paddle = "----------"
+        self.move_ball = 0
+
+    def update_shape(self , grid , str):
+        self.clear_paddle(grid)
+        if str == "expand":
+            self.__paddle = self.__paddle + "-----"
+        elif str == "shrink":
+            if (len(self.__paddle) <= 3):
+                return
+            self.__paddle = self.__paddle[0: len(self.__paddle)-3]
+        self.render_paddle(grid)
+
+    def reshape_paddle(self , grid , str):
+        self.clear_paddle(grid)
+        if str == "expand":
+            self.__paddle = self.__paddle[0:len(self.__paddle)-5]
+        elif str == "shrink":
+            self.__paddle = self.__paddle + "---"
+            if len(self.__paddle) > len("----------"):
+                self.__paddle = "----------"
+        self.render_paddle(grid)
     
     def clear_paddle(self , grid):
         '''
@@ -24,7 +45,7 @@ class Paddle(Object):
     def get_length(self):
         return len(self.__paddle)
 
-    def move_paddle(self , direction , grid):
+    def move_paddle(self , direction , grid , ball):
         '''
         Move paddle when key stroke is hit
         '''
@@ -43,6 +64,10 @@ class Paddle(Object):
             for i in range(self.get_x() , self.get_x() + len(self.__paddle)):
             #Move paddle
                 grid[HEIGHT - PADDLE_POS_Y][i] = self.__paddle[i - self.get_x()]
+            if self.move_ball == 1:
+                grid[ball.get_y()][ball.get_x()] = ' '
+                ball.set_x(ball.get_x() + 2*direction)
+                grid[ball.get_y()][ball.get_x()] = ball.get_shape
                 
 
     def render_paddle(self , grid):

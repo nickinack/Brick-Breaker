@@ -36,8 +36,12 @@ class Board:
                     print(Back.BLACK + self.__grid[i][j],end='')
                 elif self.__grid[i][j] == '$' or self.__grid[i][j] == '-':
                     print(Back.RED + self.__grid[i][j],end='')
-                elif (self.__grid[i][j] == '±' or self.__grid[i][j] == '|' and self.__grid[i][j] != " "):
-                    print(Back.BLACK + self.__grid[i][j],end='')
+                elif (self.__grid[i][j] == '1'):
+                    print(Back.YELLOW + '+',end='')
+                elif (self.__grid[i][j] == '2'):
+                    print(Back.BLUE + '+', end='')
+                elif (self.__grid[i][j] == '3'):
+                    print(Back.GREEN + '+' , end='')
                 else:
                     print(Back.LIGHTBLACK_EX + self.__grid[i][j],end='')
             print(Style.RESET_ALL, end='')
