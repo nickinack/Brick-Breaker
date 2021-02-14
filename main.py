@@ -13,6 +13,10 @@ from brick import *
 from player import *
 from powerup import *
 
+os.system('clear')
+start_game()
+time.sleep(1)
+
 player = Player()
 board = Board(HEIGHT , WIDTH)
 paddle = Paddle(PADDLE_POS_X , PADDLE_POS_Y)
@@ -32,6 +36,8 @@ for i in range(0,BRICK_LEVEL_2_NO):
 for i in range(0,BRICK_LEVEL_3_NO):
     brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
     
+brick_level_1.append(Brick(UNBREAKABLE_X , UNBREAKABLE_Y , lives=4))
+BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
 
 while True:
 
@@ -45,7 +51,11 @@ while True:
     if key == 'q':
         break
 
-    powerups = get_powerup() 
+    powerups = get_powerup()
+    cnt_grab = 0
+    active = 0
+    index = []
+    i = 0
     for powerup in powerups:
         if powerup.get_type() == "expand_paddle":
             powerup.move_powerup(board.get_grid() , paddle , paddle)
@@ -63,10 +73,19 @@ while True:
             powerup.move_powerup(board.get_grid() , ball , paddle)
 
         if powerup.get_type() == "paddle_grab":
+            cnt_grab = cnt_grab + 1
+            if active == 2:
+                index.append(i)
+            elif powerup.active == 2:
+                active = 2
             powerup.move_powerup(board.get_grid() , ball[0] , paddle)
 
         if powerup.get_type() == "paddle_grab" and key == 'f':
             powerup.delete(ball[0] , board.get_grid() , paddle)
+        i = i+1
+
+        for i in index:
+            powerup.remove(powerup[i])
 
     os.system('clear')
     for i in ball:
@@ -89,7 +108,17 @@ while True:
     print(Fore.BLUE + "Lives Remaining: " , str(player.get_lives()))
     print(Fore.YELLOW + "Ball Speed: " , str(ball[0].get_yspeed()))
     for i in powerups:
-        print(i.get_type())
+        print(i.type)
+
+    if player.get_lives() == 0:
+        game_over()
+        time.sleep(1)
+        break
+
+    if player.get_lives() > 0 and len(brick_level_1) == 0 and len(brick_level_1) == 0 and len(brick_level_1) == 0:
+        win()
+        time.sleep(1)
+        break
     board.display()
     
 

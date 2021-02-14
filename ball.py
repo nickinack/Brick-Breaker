@@ -45,11 +45,12 @@ class Ball(Object):
         '''
         grid[HEIGHT - POS_Y][POS_X] = self.__ball
 
-    def remove_ball(self , grid):
+    def remove_ball(self , grid , obj):
         '''
         Remove the ball
         '''
         grid[self.get_y()][self.get_x()] = ' '
+        del obj
 
     def set_type(self , val):
         self.__type = val
@@ -133,5 +134,6 @@ class Ball(Object):
         if out == 0:
             self.set_y(self.get_y() + self.get_yspeed())
             self.set_x(self.get_x() + self.get_xspeed())
-        print("Ball: " , self.get_x() , self.get_y() , self.get_yspeed() , self.get_xspeed() , self.storage_xspeed)
         grid[self.get_y()][self.get_x()] = self.__ball
+
+        print(self.get_x() , self.get_y())

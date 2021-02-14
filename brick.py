@@ -19,6 +19,8 @@ class Brick(Object):
             self.color = Back.YELLOW
         elif lives == 1:
             self.color = Back.BLACK
+        elif lives == 10000:
+            self.color = Back.MAGENTA
         self.brick = list((
                 ("++++++++"),
                 ("++++++++"),
@@ -27,6 +29,8 @@ class Brick(Object):
         self.__score = lives*10
 
     def change_lives(self):
+        if self.__lives == 4:
+            return
         self.__lives = self.__lives - 1
         if self.__lives == 2:
             self.__color = Back.YELLOW
@@ -83,7 +87,11 @@ class Brick(Object):
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , np.random.choice(powerup_types)) , grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -101,22 +109,111 @@ class Brick(Object):
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , np.random.choice(powerup_types)) , grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
-                
+
+        elif (((self.get_y() + len(self.brick) - ball.get_y() <= 1 and self.get_y() + len(self.brick) - ball.get_y() >= 0)) and (abs(self.get_x() - ball.get_x()) <=1 or abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() > 0):
+            '''
+            Deflect in x axis
+            '''
+            x = 4
+            ball.set_xspeed(-1*ball.get_yspeed())
+            player.set_score(player.get_score() + self.__score)
+            self.change_lives()
+            if self.__lives <= 0 or ball.get_type() == 'thru':
+                if ball.get_type() == 'thru':
+                    player.set_score(player.get_score() + self.__score * 2)
+                self.clear_brick(grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                self.set_x('Nan')
+                self.set_y('Nan')
+                self.kill()
+
+        
+        elif (((self.get_y() - ball.get_y() <= 1 and self.get_y() - ball.get_y() >= 0)) and (abs(self.get_x() - ball.get_x()) <=1 or abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() > 0):
+            '''
+            Deflect in y axis
+            '''
+            x = 5
+            ball.set_yspeed(-1*ball.get_yspeed())
+            player.set_score(player.get_score() + self.__score)
+            self.change_lives()
+            if self.__lives <= 0 or ball.get_type() == 'thru':
+                if ball.get_type() == 'thru':
+                    player.set_score(player.get_score() + self.__score * 2)
+                self.clear_brick(grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                self.set_x('Nan')
+                self.set_y('Nan')
+                self.kill()
+
+        elif (((ball.get_y() - self.get_y() - len(self.brick) <= 1) and (ball.get_y() - self.get_y() - len(self.brick) >= 0)) and (abs(self.get_x() - ball.get_x()) <=1 or abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
+            '''
+            Deflect in y axis
+            '''
+            x = 6
+            ball.set_yspeed(-1*ball.get_yspeed())
+            player.set_score(player.get_score() + self.__score)
+            self.change_lives()
+            if self.__lives <= 0 or ball.get_type() == 'thru':
+                if ball.get_type() == 'thru':
+                    player.set_score(player.get_score() + self.__score * 2)
+                self.clear_brick(grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                self.set_x('Nan')
+                self.set_y('Nan')
+                self.kill()
+
+        elif (((ball.get_y() - self.get_y() <= 1) and (ball.get_y() - self.get_y()  >= 0)) and (abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
+            x = 7
+            ball.set_xspeed(-1*ball.get_yspeed())
+            player.set_score(player.get_score() + self.__score)
+            self.change_lives()
+            if self.__lives <= 0 or ball.get_type() == 'thru':
+                if ball.get_type() == 'thru':
+                    player.set_score(player.get_score() + self.__score * 2)
+                self.clear_brick(grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                self.set_x('Nan')
+                self.set_y('Nan')
+                self.kill()
 
         elif ((self.get_x() - ball.get_x() >= 0 and self.get_x() - ball.get_x() <= 2) or (ball.get_x() - self.get_x() - len(self.brick[0]) >=0 and ball.get_x() - self.get_x() - len(self.brick[0]) <= 2))  and self.get_y() <= ball.get_y() and self.get_y() + len(self.brick) >= ball.get_y():
             x = 3
             ball.set_xspeed(-1*ball.get_xspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
-            if self.__lives <= 0 or ball.get_type == 'thru':
+            if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , np.random.choice(powerup_types)) , grid)
+                choice = np.random.choice(powerup_types)
+                if choice == 'paddle_grab':
+                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                else:
+                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()

@@ -14,6 +14,8 @@ BRICK_START_Y_2 = 30
 BRICK_START_X_2 = [25]
 BRICK_START_Y_3 = 20
 BRICK_START_X_3 = [33]
+UNBREAKABLE_X = 5
+UNBREAKABLE_Y = 39
 powerup_class = []
 powerup_types = ["ball_multiplier" , "thru_ball" , "paddle_grab" , "expand_paddle" , "shrink_paddle" , "fast_ball"]
 
@@ -36,7 +38,6 @@ def on_clear(powerup , obj , grid , paddle):
     powerup_class.remove(powerup)
     powerup.delete(obj , grid , paddle)
 
-
 for i in range(1,BRICK_LEVEL_1_NO):
     BRICK_START_X_1.append(BRICK_START_X_1[i-1] + 15)
 
@@ -45,3 +46,59 @@ for i in range(1,BRICK_LEVEL_2_NO):
 
 for i in range(1,BRICK_LEVEL_3_NO):
     BRICK_START_X_3.append(BRICK_START_X_3[i-1] + 15)
+
+welcome = '''
+██     ██ ███████ ██       ██████  ██████  ███    ███ ███████ 
+██     ██ ██      ██      ██      ██    ██ ████  ████ ██      
+██  █  ██ █████   ██      ██      ██    ██ ██ ████ ██ █████   
+██ ███ ██ ██      ██      ██      ██    ██ ██  ██  ██ ██      
+ ███ ███  ███████ ███████  ██████  ██████  ██      ██ ███████ 
+                                                              
+                                                                 '''
+
+lost = '''
+
+██       ██████  ███████ ████████ 
+██      ██    ██ ██         ██    
+██      ██    ██ ███████    ██    
+██      ██    ██      ██    ██    
+███████  ██████  ███████    ██    
+                                  
+                                       
+                                           
+                                           '''
+
+won = '''
+
+██     ██ ██ ███    ██ ██ 
+██     ██ ██ ████   ██ ██ 
+██  █  ██ ██ ██ ██  ██ ██ 
+██ ███ ██ ██ ██  ██ ██    
+ ███ ███  ██ ██   ████ ██ 
+                          
+                            '''
+
+def start_game():
+    print(welcome)  
+
+def game_over():
+    print(lost)
+
+def win():
+    print(win)
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                                                     
+                                                                                                                     
