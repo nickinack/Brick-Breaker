@@ -62,7 +62,7 @@ class Powerup:
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '
         new_y = self.y + 3
-        if (self.active == 2 and time.time() - self.start_time >= 10):
+        if (self.active == 2 and time.time() - self.start_time >= 15):
             if self.type == "expand_paddle":
                 obj.reshape_paddle(grid , "expand")
 
@@ -77,11 +77,15 @@ class Powerup:
 
             if self.type == "ball_multiplier":
                 if len(obj) > 1:
+                    ind = []
                     for i in range(int(len(obj)/2) , len(obj)):
                         grid[obj[i].get_y()][obj[i].get_x()] = ' '
-                        del obj[i]
-
-                    obj = obj[:len(obj) - int(len(obj)/2)]
+                        ind.append(i)
+                    print(ind)
+                    ind_len = len(ind)
+                    for i in range(0 , ind_len):
+                        grid[obj[len(ind) - 1].get_y()][obj[len(ind) - 1].get_x()] = ' '
+                        del obj[len(ind) - 1]
 
             if self.type == "thru_ball":
                 for j in range(0 , len(obj)):

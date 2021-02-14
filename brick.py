@@ -217,13 +217,3 @@ class Brick(Object):
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
-                
-
-
-
-
-
-    
-
-    
-
