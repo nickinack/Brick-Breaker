@@ -22,6 +22,7 @@ board = Board(HEIGHT , WIDTH)
 paddle = Paddle(PADDLE_POS_X , PADDLE_POS_Y)
 paddle.render_paddle(board.get_grid())
 ball = []
+BALL_POS_X = np.random.randint(PADDLE_POS_X+2 , PADDLE_POS_X + paddle.get_length()-2)
 ball.append(Ball(BALL_POS_X , BALL_POS_Y))
 
 brick_level_1 = []
@@ -88,18 +89,24 @@ while True:
             powerup.remove(powerup[i])
 
     os.system('clear')
+    total_lives = 0
+    total_lives1 = 0
     for i in ball:
         i.move_ball(board.get_grid() , paddle.get_x() , paddle.get_length() , paddle , player , powerups , ball)
     for i in range(0,BRICK_LEVEL_1_NO):
         brick_level_1[i].render_brick(board.get_grid())
+        total_lives = total_lives + brick_level_1[i].get_lives()
+        total_lives1 = total_lives
         for j in ball:
             brick_level_1[i].brick_ball_collisions(j , board.get_grid() , player)
     for i in range(0,BRICK_LEVEL_2_NO):
         brick_level_2[i].render_brick(board.get_grid())
+        total_lives = total_lives + brick_level_2[i].get_lives()
         for j in ball:
             brick_level_2[i].brick_ball_collisions(j , board.get_grid() , player)
     for i in range(0,BRICK_LEVEL_3_NO):
         brick_level_3[i].render_brick(board.get_grid())
+        total_lives = total_lives + brick_level_3[i].get_lives()
         for j in ball:
             brick_level_3[i].brick_ball_collisions(j , board.get_grid() , player)
     
@@ -107,19 +114,18 @@ while True:
     print(Fore.GREEN + "Time Elapsed: " , str(player.get_elapsed_time()))
     print(Fore.BLUE + "Lives Remaining: " , str(player.get_lives()))
     print(Fore.YELLOW + "Ball Speed: " , str(ball[0].get_yspeed()))
-    for i in powerups:
-        print(i.type)
+    print(total_lives)
 
     if player.get_lives() == 0:
         game_over()
         time.sleep(1)
         break
 
-    if player.get_lives() > 0 and len(brick_level_1) == 0 and len(brick_level_1) == 0 and len(brick_level_1) == 0:
+    if player.get_lives() > 0 and total_lives == 0 or total_lives == 4 and total_lives1 == 4:
         win()
         time.sleep(1)
         break
-    board.display()
+    board.display(powerups)
     
 
 

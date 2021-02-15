@@ -95,11 +95,11 @@ class Ball(Object):
             len_ball = len(ball)
             if len(ball) > 1:
                 ball.remove(self)
-            out = 1
             if len_ball == 1:
+                out = 3
                 self.set_xspeed(0)
                 self.set_yspeed(-1*self.get_yspeed())           
-                self.set_x(BALL_POS_X)            
+                self.set_x(np.random.randint(PADDLE_POS_X , PADDLE_POS_X + paddle.get_length()))            
                 self.set_y(HEIGHT - BALL_POS_Y)
                 paddle.clear_paddle(grid)             
                 paddle.set_x(PADDLE_POS_X)             
@@ -108,19 +108,28 @@ class Ball(Object):
                 player.set_lives(player.get_lives() - 1)
                 for i in powerups:
                     if i.get_type() == "expand_paddle":
+                        i.delete(paddle , grid , paddle)
                         on_clear(i , paddle , grid , paddle)
 
                     elif i.get_type() == "shrink_paddle":
+                        i.delete(paddle , grid , paddle)
                         on_clear(i , paddle , grid , paddle)
 
                     elif i.get_type() == "fast_ball":
+                        i.delete(self , grid , paddle)
                         on_clear(i , self , grid , paddle)
 
                     elif i.get_type() == "ball_multiplier":
-                        on_clear(i , ball , grid , paddle)
+                        i.delete(ball , grid , paddle)
+                        on_clear(i , self , grid , paddle)
 
                     elif i.get_type() == "thru_ball":
-                        on_clear(i , ball , grid , paddle)
+                        i.delete(ball , grid , paddle)
+                        on_clear(i , self , grid , paddle)
+
+                    grid[i.y][i.x] = ' '
+                print(self.get_x() , self.get_y() , len(ball) , out , len(powerups))
+                set_powerup()
 
             return
 
@@ -135,5 +144,7 @@ class Ball(Object):
             self.set_y(self.get_y() + self.get_yspeed())
             self.set_x(self.get_x() + self.get_xspeed())
         grid[self.get_y()][self.get_x()] = self.__ball
+        print(self.get_x() , self.get_y() , len(ball) , out , len(powerups))
 
-        print(self.get_x() , self.get_y())
+
+        

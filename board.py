@@ -26,7 +26,7 @@ class Board:
             matrix.append(self.new_row)
         self.__grid = np.array(matrix)
 
-    def display(self):
+    def display(self , powerups):
         '''
         Display the board
         '''

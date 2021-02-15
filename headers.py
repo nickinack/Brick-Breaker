@@ -1,3 +1,5 @@
+import numpy as np
+
 HEIGHT = 42
 WIDTH = 90
 PADDLE_POS_Y = 2
@@ -6,14 +8,14 @@ PADDLE_SIZE = 10
 BALL_POS_Y = 3
 BALL_POS_X = int(PADDLE_POS_X + PADDLE_SIZE/2)
 BRICK_LEVEL_1_NO = 4
-BRICK_LEVEL_2_NO = 2
-BRICK_LEVEL_3_NO = 1
+BRICK_LEVEL_2_NO = 3
+BRICK_LEVEL_3_NO = 2
 BRICK_START_Y_1 = 39
-BRICK_START_X_1 = [17]
+BRICK_START_X_1 = [23]
 BRICK_START_Y_2 = 30
-BRICK_START_X_2 = [25]
+BRICK_START_X_2 = [23]
 BRICK_START_Y_3 = 20
-BRICK_START_X_3 = [33]
+BRICK_START_X_3 = [31]
 UNBREAKABLE_X = 5
 UNBREAKABLE_Y = 39
 powerup_class = []
@@ -32,11 +34,13 @@ def delete_powerup(powerup):
     global powerup_class
     powerup_class.remove(powerup)
 
+def set_powerup():
+    global powerup_class
+    powerup_class = []
 
 def on_clear(powerup , obj , grid , paddle):
     global powerup_class
-    powerup_class.remove(powerup)
-    powerup.delete(obj , grid , paddle)
+    grid[powerup.y][powerup.x] = ' '
 
 for i in range(1,BRICK_LEVEL_1_NO):
     BRICK_START_X_1.append(BRICK_START_X_1[i-1] + 15)
