@@ -89,7 +89,6 @@ class Powerup:
                     for i in range(int(len(obj)/2) , len(obj)):
                         grid[obj[i].get_y()][obj[i].get_x()] = ' '
                         ind.append(i)
-                    print(ind)
                     ind_len = len(ind)
                     for i in range(0 , ind_len):
                         grid[obj[len(ind) - 1].get_y()][obj[len(ind) - 1].get_x()] = ' '

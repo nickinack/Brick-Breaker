@@ -21,15 +21,22 @@ class Brick(Object):
             self.color = Back.BLACK
         elif lives == 4:
             self.color = Back.MAGENTA
+        elif lives == 5:
+            self.color = Back.RED
         self.brick = list((
                 ("++++++++"),
                 ("++++++++"),
                 ("++++++++")
         ))
+        if lives == 5:
+            self.brick = list((
+                ("EEEEEEEE"),
+                ("EEEEEEEE")
+            ))
         self.__score = lives*10
 
     def change_lives(self):
-        if self.__lives == 4:
+        if self.__lives == 4 or self.__lives == 5:
             return
         self.__lives = self.__lives - 1
         if self.__lives == 2:
@@ -66,11 +73,13 @@ class Brick(Object):
         '''
         Clear brick from area
         '''
+        if self.get_y() == 'Nan' or self.get_x() == 'Nan':
+            return
         for i in range(0 , len(self.brick)):
             for j in range(0 , len(self.brick[0])):
                 grid[self.get_y() + i][self.get_x() + j] = ' '
 
-    def brick_ball_collisions(self , ball , grid , player):
+    def brick_ball_collisions(self , ball , grid , player , pos , brick_level):
         '''
         Check for brick ball collissions
         '''
@@ -83,9 +92,15 @@ class Brick(Object):
             Invert the ball in -y direction
             '''
             x = 1
-            ball.set_yspeed(-1*ball.get_yspeed())
+            if self.__lives == 5:
+                ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_yspeed(-1*ball.get_yspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -101,9 +116,15 @@ class Brick(Object):
 
         elif ((self.get_x() - ball.get_x() >= 0 and self.get_x() - ball.get_x() <= 2) or (ball.get_x() - self.get_x() - len(self.brick[0]) >=0 and ball.get_x() - self.get_x() - len(self.brick[0]) <= 2))  and self.get_y() <= ball.get_y() and self.get_y() + len(self.brick) >= ball.get_y():
             x = 3
-            ball.set_xspeed(-1*ball.get_xspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_xspeed(-1*ball.get_xspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -123,9 +144,15 @@ class Brick(Object):
             Invert the ball in +y direction
             '''
             x = 2
-            ball.set_yspeed(-1*ball.get_yspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_yspeed(-1*ball.get_yspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -144,9 +171,15 @@ class Brick(Object):
             Deflect in x axis
             '''
             x = 4
-            ball.set_xspeed(-1*ball.get_xspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_xspeed(-1*ball.get_xspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -166,9 +199,15 @@ class Brick(Object):
             Deflect in y axis
             '''
             x = 5
-            ball.set_yspeed(-1*ball.get_yspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_yspeed(-1*ball.get_yspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -187,9 +226,15 @@ class Brick(Object):
             Deflect in y axis
             '''
             x = 6
-            ball.set_yspeed(-1*ball.get_yspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_yspeed(-1*ball.get_yspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -205,9 +250,15 @@ class Brick(Object):
 
         elif (((ball.get_y() - self.get_y() <= 1) and (ball.get_y() - self.get_y()  >= 0)) and (abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
             x = 7
-            ball.set_xspeed(-1*ball.get_xspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_xspeed(-1*ball.get_xspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
@@ -222,9 +273,15 @@ class Brick(Object):
                 self.kill()
 
         elif ((self.get_y() - ball.get_y() <= 2 and self.get_y() - ball.get_y() >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x())):
-            ball.set_yspeed(-1*ball.get_yspeed())
+            if self.__lives == 5:
+               ball.set_yspeed(-1*ball.get_yspeed())
+            else:
+                ball.set_yspeed(-1*ball.get_yspeed())
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
+            if self.__lives == 5:
+                visited = np.zeros(BRICK_LEVEL_4_NO)
+                explode(brick_level , grid , pos , visited)
             if self.__lives <= 0 or ball.get_type() == 'thru':
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)

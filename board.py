@@ -44,6 +44,8 @@ class Board:
                     print(Back.GREEN + '+' , end='')
                 elif (self.__grid[i][j] == '4'):
                     print(Back.MAGENTA + 'U' , end='')
+                elif (self.__grid[i][j] == '5'):
+                    print(Back.RED + 'E' , end='')
                 else:
                     print(Back.LIGHTBLACK_EX + self.__grid[i][j],end='')
             print(Style.RESET_ALL, end='')

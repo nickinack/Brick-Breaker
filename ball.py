@@ -128,7 +128,6 @@ class Ball(Object):
                         on_clear(i , self , grid , paddle)
 
                     grid[i.y][i.x] = ' '
-                print(self.get_x() , self.get_y() , len(ball) , out , len(powerups))
                 set_powerup()
 
             return

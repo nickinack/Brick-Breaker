@@ -28,6 +28,8 @@ ball.append(Ball(BALL_POS_X , BALL_POS_Y))
 brick_level_1 = []
 brick_level_2 = []
 brick_level_3 = []
+brick_level_4 = []
+brick_level_4.append(Brick(7,31,lives=5))
 for i in range(0,BRICK_LEVEL_1_NO):
     brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=3))
 
@@ -36,9 +38,17 @@ for i in range(0,BRICK_LEVEL_2_NO):
 
 for i in range(0,BRICK_LEVEL_3_NO):
     brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
+
+for i in range(0, BRICK_LEVEL_4_NO-2):
+    if i == 3 or i==1 or i==5:
+         brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=5))
+    else:
+        brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
     
 brick_level_1.append(Brick(UNBREAKABLE_X , UNBREAKABLE_Y , lives=4))
+brick_level_4.append(Brick(63,31,lives=5))
 BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
+
 
 while True:
 
@@ -98,17 +108,22 @@ while True:
         total_lives = total_lives + brick_level_1[i].get_lives()
         total_lives1 = total_lives
         for j in ball:
-            brick_level_1[i].brick_ball_collisions(j , board.get_grid() , player)
+            brick_level_1[i].brick_ball_collisions(j , board.get_grid() , player, i , brick_level_1)
     for i in range(0,BRICK_LEVEL_2_NO):
         brick_level_2[i].render_brick(board.get_grid())
         total_lives = total_lives + brick_level_2[i].get_lives()
         for j in ball:
-            brick_level_2[i].brick_ball_collisions(j , board.get_grid() , player)
+            brick_level_2[i].brick_ball_collisions(j , board.get_grid() , player , i , brick_level_2)
     for i in range(0,BRICK_LEVEL_3_NO):
         brick_level_3[i].render_brick(board.get_grid())
         total_lives = total_lives + brick_level_3[i].get_lives()
         for j in ball:
-            brick_level_3[i].brick_ball_collisions(j , board.get_grid() , player)
+            brick_level_3[i].brick_ball_collisions(j , board.get_grid() , player , i , brick_level_3)
+    for i in range(0,BRICK_LEVEL_4_NO):
+        brick_level_4[i].render_brick(board.get_grid())
+        total_lives = total_lives + brick_level_4[i].get_lives()
+        for j in ball:
+            brick_level_4[i].brick_ball_collisions(j , board.get_grid() , player , i , brick_level_4)
     
     print(Fore.RED + "Score: " + str(player.get_score()))
     print(Fore.GREEN + "Time Elapsed: " , str(player.get_elapsed_time()))
