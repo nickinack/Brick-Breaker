@@ -1,6 +1,6 @@
 import numpy as np
 
-HEIGHT = 48
+HEIGHT = 45
 WIDTH = 90
 PADDLE_POS_Y = 2
 PADDLE_POS_X = 35
@@ -11,7 +11,7 @@ BRICK_LEVEL_1_NO = 4
 BRICK_LEVEL_2_NO = 3
 BRICK_LEVEL_3_NO = 1
 BRICK_LEVEL_4_NO = 8
-BRICK_START_Y_1 = 46
+BRICK_START_Y_1 = 43
 BRICK_START_X_1 = [23]
 BRICK_START_Y_2 = 33
 BRICK_START_X_2 = [21]
@@ -20,7 +20,7 @@ BRICK_START_X_3 = [31]
 BRICK_START_Y_4 = 29
 BRICK_START_X_4 = [15]
 UNBREAKABLE_X = 5
-UNBREAKABLE_Y = 46
+UNBREAKABLE_Y = 43
 powerup_class = []
 powerup_types = ["ball_multiplier" , "thru_ball" , "paddle_grab" , "expand_paddle" , "shrink_paddle" , "fast_ball"]
 
@@ -46,7 +46,6 @@ def on_clear(powerup , obj , grid , paddle):
     grid[powerup.y][powerup.x] = ' '
 
 def explode(brick_level , grid , i , visited):
-    print(brick_level[i].get_lives() , i)
     if visited[i]:
         return
     if i<0 or i>BRICK_LEVEL_4_NO-1:

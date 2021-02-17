@@ -143,7 +143,7 @@ class Ball(Object):
             self.set_y(self.get_y() + self.get_yspeed())
             self.set_x(self.get_x() + self.get_xspeed())
         grid[self.get_y()][self.get_x()] = self.__ball
-        print(self.get_x() , self.get_y() , len(ball) , out , len(powerups))
+
 
 
         

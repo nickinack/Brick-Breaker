@@ -85,7 +85,7 @@ while True:
 
         if powerup.get_type() == "paddle_grab":
             cnt_grab = cnt_grab + 1
-            if active == 2:
+            if powerup.active != 2 and active == 2:
                 index.append(i)
             elif powerup.active == 2:
                 active = 2
@@ -93,10 +93,12 @@ while True:
 
         if powerup.get_type() == "paddle_grab" and key == 'f':
             powerup.delete(ball[0] , board.get_grid() , paddle)
+            index = []
         i = i+1
 
-        for i in index:
-            powerup.remove(powerup[i])
+        if cnt_grab > 1 and active == 2:
+            for i in index:
+                powerups.remove(powerups[i])
 
     os.system('clear')
     total_lives = 0
@@ -130,13 +132,15 @@ while True:
     print(Fore.BLUE + "Lives Remaining: " , str(player.get_lives()))
     print(Fore.YELLOW + "Ball Speed: " , str(ball[0].get_yspeed()))
     print(total_lives)
+    for i in range(0 , len(powerups)):
+        print(powerups[i].type)
 
     if player.get_lives() == 0:
         game_over()
         time.sleep(1)
         break
 
-    if player.get_lives() > 0 and total_lives == 0 or total_lives == 4 and total_lives1 == 4:
+    if player.get_lives() > 0 and ((total_lives == 0) or (total_lives == 4 and total_lives1 == 4)):
         win()
         time.sleep(1)
         break

@@ -56,11 +56,6 @@ class Powerup:
                     
                 obj = obj[:len(obj) - int(len(obj)/2)]
 
-        if self.type == "paddle_grab" and self.active == 2:
-            obj.set_xspeed(obj.storage_xspeed)
-            obj.set_yspeed(-1*abs(obj.storage_yspeed))
-            paddle.move_ball = 0
-
         if self.type == "thru_ball":
             for j in range(0 , len(obj)):
                 obj[j].set_type('normal')

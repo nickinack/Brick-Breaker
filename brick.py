@@ -107,9 +107,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -131,9 +131,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -159,9 +159,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -186,9 +186,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -214,9 +214,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -241,9 +241,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -265,9 +265,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
@@ -288,9 +288,9 @@ class Brick(Object):
                 self.clear_brick(grid)
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
-                    update_powerup(paddleGrab(self.get_x() , HEIGHT - self.get_y()+4 , "paddle_grab") , grid)
+                    update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
                 else:
-                    update_powerup(Powerup(self.get_x() , HEIGHT - self.get_y()+4 , choice) , grid)
+                    update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
                 self.set_y('Nan')
                 self.kill()
