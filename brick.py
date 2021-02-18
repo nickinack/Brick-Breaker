@@ -108,6 +108,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
@@ -132,6 +134,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
@@ -160,6 +164,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
@@ -187,6 +193,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
@@ -215,6 +223,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
@@ -242,6 +252,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24 , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
@@ -266,6 +278,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24 , choice) , grid)
                 self.set_x('Nan')
@@ -289,6 +303,8 @@ class Brick(Object):
                 choice = np.random.choice(powerup_types)
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(np.random.randint(30 , 50) , 24  , "paddle_grab") , grid)
+                elif choice == 'thru_ball':
+                    update_powerup(thruBall(np.random.randint(30 , 50) , 24 , "thru_ball") , grid)
                 else:
                     update_powerup(Powerup(np.random.randint(30 , 50) , 24  , choice) , grid)
                 self.set_x('Nan')
