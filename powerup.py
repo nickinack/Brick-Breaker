@@ -135,6 +135,8 @@ class paddleGrab(Powerup):
         self.time_limit = 8
 
     def delete(self , obj , grid , paddle):
+        if self.active == -1:
+            return 
         obj.set_xspeed(obj.storage_xspeed)
         obj.set_yspeed(-1*abs(obj.storage_yspeed))
         paddle.move_ball = 0
@@ -144,6 +146,9 @@ class paddleGrab(Powerup):
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '
         new_y = self.y + 3
+
+        if self.active == -1:
+            return
 
         if (self.active == 2 and time.time() - self.start_time >= self.time_limit):
             obj.set_xspeed(obj.storage_xspeed)
@@ -190,6 +195,7 @@ class paddleGrab(Powerup):
         obj.set_xspeed(obj.get_x_storage())
         obj.set_yspeed(-1*abs(obj.get_y_storage()))
         delete_powerup(self)
+        self.active = -1
 
 class thruBall(Powerup):
 
@@ -242,24 +248,3 @@ class thruBall(Powerup):
         for j in range(0 , ball_len):
             obj[j].set_type('thru')
 
-
-    
-
-
-
-
-
-    
-
-
-
-
-    
-
-
-
-
-
-
-
-            

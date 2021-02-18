@@ -77,11 +77,3 @@ class Paddle(Object):
         for i in range(self.get_x() , self.get_x() + len(self.__paddle)):
             grid[HEIGHT - PADDLE_POS_Y][i] = self.__paddle[i - self.get_x()]
 
-
-
-
-
-
-    
-    
-        

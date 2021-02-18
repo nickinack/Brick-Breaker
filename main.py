@@ -146,5 +146,3 @@ while True:
         break
     board.display(powerups)
     
-
-

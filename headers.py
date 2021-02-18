@@ -130,19 +130,3 @@ def game_over():
 
 def win():
     print(win)
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                              
-                                                                                                                     
-                                                                                                                     
