@@ -135,8 +135,14 @@ class paddleGrab(Powerup):
         self.time_limit = 8
 
     def delete(self , obj , grid , paddle):
+        grid[self.y][self.x] = " "
+        grid[self.y + 2][self.x] = " "
+        
         if self.active == -1:
             return 
+        if self.active == 0:
+            self.active = -1
+            return
         obj.set_xspeed(obj.storage_xspeed)
         obj.set_yspeed(-1*abs(obj.storage_yspeed))
         paddle.move_ball = 0
