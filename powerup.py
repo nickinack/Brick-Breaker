@@ -43,10 +43,10 @@ class Powerup:
 
         if self.type == "fast_ball" and self.active == 2:
             if obj.get_yspeed() > 0:
-                obj.set_yspeed(obj.get_yspeed() - 3)
+                obj.set_yspeed(obj.get_yspeed() - 2)
 
             if obj.get_yspeed() < 0:
-                obj.set_yspeed(obj.get_yspeed() + 3)
+                obj.set_yspeed(obj.get_yspeed() + 2)
 
         if self.type == "ball_multiplier" and self.active == 2:
             if len(obj) > 1:
@@ -70,9 +70,9 @@ class Powerup:
 
             if self.type == "fast_ball":
                 if obj.get_yspeed() > 0:
-                    obj.set_yspeed(obj.get_yspeed() - 3)
+                    obj.set_yspeed(obj.get_yspeed() - 2)
                 if obj.get_yspeed() < 0:
-                    obj.set_yspeed(obj.get_yspeed() + 3)
+                    obj.set_yspeed(obj.get_yspeed() + 2)
 
             if self.type == "ball_multiplier":
                 if len(obj) > 1:
@@ -118,10 +118,10 @@ class Powerup:
 
             elif self.type == "fast_ball":
                 if obj.get_yspeed() > 0:
-                    obj.set_yspeed(obj.get_yspeed() + 3)
+                    obj.set_yspeed(obj.get_yspeed() + 2)
 
                 if obj.get_yspeed() < 0:
-                    obj.set_yspeed(obj.get_yspeed() - 3)
+                    obj.set_yspeed(obj.get_yspeed() - 2)
             
             elif self.type == "ball_multiplier":
                 ball_len = len(obj)
@@ -137,7 +137,7 @@ class paddleGrab(Powerup):
     def delete(self , obj , grid , paddle):
         grid[self.y][self.x] = " "
         grid[self.y + 2][self.x] = " "
-        
+
         if self.active == -1:
             return 
         if self.active == 0:

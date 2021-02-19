@@ -99,6 +99,7 @@ while True:
         if cnt_grab > 1 and active == 2:
             for i in index:
                 powerups.remove(powerups[i])
+            break
 
     os.system('clear')
     total_lives = 0

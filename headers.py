@@ -1,6 +1,6 @@
 import numpy as np
 
-HEIGHT = 45
+HEIGHT = 44
 WIDTH = 90
 PADDLE_POS_Y = 2
 PADDLE_POS_X = 35
@@ -11,16 +11,16 @@ BRICK_LEVEL_1_NO = 4
 BRICK_LEVEL_2_NO = 3
 BRICK_LEVEL_3_NO = 1
 BRICK_LEVEL_4_NO = 8
-BRICK_START_Y_1 = 43
+BRICK_START_Y_1 = 42
 BRICK_START_X_1 = [23]
-BRICK_START_Y_2 = 33
+BRICK_START_Y_2 = 32
 BRICK_START_X_2 = [21]
-BRICK_START_Y_3 = 20
+BRICK_START_Y_3 = 19
 BRICK_START_X_3 = [31]
-BRICK_START_Y_4 = 29
+BRICK_START_Y_4 = 28
 BRICK_START_X_4 = [15]
 UNBREAKABLE_X = 5
-UNBREAKABLE_Y = 43
+UNBREAKABLE_Y = 42
 powerup_class = []
 powerup_types = ["ball_multiplier" , "thru_ball" , "paddle_grab" , "expand_paddle" , "shrink_paddle" , "fast_ball"]
 

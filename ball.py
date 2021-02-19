@@ -78,7 +78,7 @@ class Ball(Object):
             elif x_reflect > paddle_size/2 and paddle.move_ball != 1:
                 self.set_xspeed(int(x_reflect - paddle_size/2))
 
-            elif abs(x_reflect) == paddle_size/2 and paddle.move_ball != 1:
+            elif x_reflect == paddle_size/2 and paddle.move_ball != 1:
                 self.set_xspeed(0)
                 
         new_y = self.get_y() + self.get_yspeed()

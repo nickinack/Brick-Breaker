@@ -87,7 +87,7 @@ class Brick(Object):
         if self.get_x() == 'Nan' and self.get_y() == 'Nan':
             return
 
-        if ball.get_y() - self.get_y() - len(self.brick) <= 2 and ball.get_y() - self.get_y() - len(self.brick) >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x() and ball.get_yspeed() < 0:
+        if ball.get_y() - self.get_y() - len(self.brick) <= abs(ball.get_yspeed()) and ball.get_y() - self.get_y() - len(self.brick) >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x() and ball.get_yspeed() < 0:
             '''
             Invert the ball in -y direction
             '''
@@ -143,7 +143,7 @@ class Brick(Object):
                 self.kill()
                 
 
-        elif ball.get_y() - self.get_y() >= -2 and ball.get_y() - self.get_y() <= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x() and ball.get_yspeed() > 0:
+        elif ball.get_y() - self.get_y() >= -1*ball.get_yspeed() and ball.get_y() - self.get_y() <= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x() and ball.get_yspeed() > 0:
             '''
             Invert the ball in +y direction
             '''
@@ -231,7 +231,7 @@ class Brick(Object):
                 self.set_y('Nan')
                 self.kill()
 
-        elif (((ball.get_y() - self.get_y() - len(self.brick) <= 1) and (ball.get_y() - self.get_y() - len(self.brick) >= 0)) and (abs(self.get_x() - ball.get_x()) <=1 or abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
+        elif (((ball.get_y() - self.get_y() - len(self.brick) <= 2) and (ball.get_y() - self.get_y() - len(self.brick) >= 0)) and (abs(self.get_x() - ball.get_x()) <=1 or abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
             '''
             Deflect in y axis
             '''
@@ -260,7 +260,7 @@ class Brick(Object):
                 self.set_y('Nan')
                 self.kill()
 
-        elif (((ball.get_y() - self.get_y() <= 1) and (ball.get_y() - self.get_y()  >= 0)) and (abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
+        elif (((ball.get_y() - self.get_y() <= 2) and (ball.get_y() - self.get_y()  >= 0)) and (abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
             x = 7
             if self.__lives == 5:
                ball.set_yspeed(-1*ball.get_yspeed())
@@ -286,7 +286,7 @@ class Brick(Object):
                 self.set_y('Nan')
                 self.kill()
 
-        elif ((self.get_y() - ball.get_y() <= 2 and self.get_y() - ball.get_y() >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x())):
+        elif ((self.get_y() - ball.get_y() <= abs(ball.get_yspeed()) and self.get_y() - ball.get_y() >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x())):
             if self.__lives == 5:
                ball.set_yspeed(-1*ball.get_yspeed())
             else:
