@@ -143,11 +143,14 @@ class paddleGrab(Powerup):
         if self.active == 0:
             self.active = -1
             return
+            
         obj.set_xspeed(obj.storage_xspeed)
         obj.set_yspeed(-1*abs(obj.storage_yspeed))
         paddle.move_ball = 0
         if self.active == 0:
             grid[self.y][self.x] = ' '
+
+        delete_powerup(self)
 
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '
@@ -157,8 +160,6 @@ class paddleGrab(Powerup):
             return
 
         if (self.active == 2 and time.time() - self.start_time >= self.time_limit):
-            obj.set_xspeed(obj.storage_xspeed)
-            obj.set_yspeed(-1*abs(obj.storage_yspeed))
             paddle.move_ball = 0
             self.active = -1
             delete_powerup(self)
@@ -219,6 +220,8 @@ class thruBall(Powerup):
 
         for j in range(0 , len(obj)):
             obj[j].set_type('normal')
+        
+        delete_powerup(self)
 
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '

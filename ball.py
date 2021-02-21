@@ -106,7 +106,7 @@ class Ball(Object):
                 paddle.set_y(PADDLE_POS_Y)
                 paddle.move_paddle(0 , grid , ball)
                 player.set_lives(player.get_lives() - 1)
-                for i in powerups:
+                for i in powerups[:]:
                     if i.get_type() == "expand_paddle":
                         i.delete(paddle , grid , paddle)
                         on_clear(i , paddle , grid , paddle)

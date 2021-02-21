@@ -40,7 +40,7 @@ for i in range(0,BRICK_LEVEL_3_NO):
     brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
 
 for i in range(0, BRICK_LEVEL_4_NO-2):
-    if i == 3 or i==1 or i==5:
+    if i == 1 or i == 2 or i==3 or i==4:
          brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=5))
     else:
         brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
@@ -67,7 +67,7 @@ while True:
     active = 0
     index = []
     i = 0
-    for powerup in powerups:
+    for powerup in powerups[:]:
         if powerup.get_type() == "expand_paddle":
             powerup.move_powerup(board.get_grid() , paddle , paddle)
 
@@ -94,22 +94,25 @@ while True:
         if powerup.get_type() == "paddle_grab" and key == 'f':
             powerup.delete(ball[0] , board.get_grid() , paddle)
             index = []
+            break
         i = i+1
 
         if cnt_grab > 1 and active == 2:
             for i in index:
                 powerups.remove(powerups[i])
-            break
 
     os.system('clear')
     total_lives = 0
     total_lives1 = 0
+    zero_lives = 0
     for i in ball:
         i.move_ball(board.get_grid() , paddle.get_x() , paddle.get_length() , paddle , player , powerups , ball)
     for i in range(0,BRICK_LEVEL_1_NO):
         brick_level_1[i].render_brick(board.get_grid())
         total_lives = total_lives + brick_level_1[i].get_lives()
         total_lives1 = total_lives
+        if brick_level_1[i].get_lives() == 0:
+            zero_lives = zero_lives + 1
         for j in ball:
             brick_level_1[i].brick_ball_collisions(j , board.get_grid() , player, i , brick_level_1)
     for i in range(0,BRICK_LEVEL_2_NO):
@@ -132,7 +135,6 @@ while True:
     print(Fore.GREEN + "Time Elapsed: " , str(player.get_elapsed_time()))
     print(Fore.BLUE + "Lives Remaining: " , str(player.get_lives()))
     print(Fore.YELLOW + "Ball Speed: " , str(ball[0].get_yspeed()))
-    print(total_lives)
     for i in range(0 , len(powerups)):
         print(powerups[i].type)
 
@@ -141,7 +143,7 @@ while True:
         time.sleep(1)
         break
 
-    if player.get_lives() > 0 and ((total_lives == 0) or (total_lives == 4 and total_lives1 == 4)):
+    if player.get_lives() > 0 and ((total_lives == 0) or (total_lives == 4 and total_lives1 == 4 and zero_lives > 1)):
         win()
         time.sleep(1)
         break
