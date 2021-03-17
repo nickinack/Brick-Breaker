@@ -25,31 +25,185 @@ ball = []
 BALL_POS_X = np.random.randint(PADDLE_POS_X+2 , PADDLE_POS_X + paddle.get_length()-2)
 ball.append(Ball(BALL_POS_X , BALL_POS_Y))
 
+## Start with declaring layouts
 brick_level_1 = []
 brick_level_2 = []
 brick_level_3 = []
 brick_level_4 = []
-brick_level_4.append(Brick(7,31,lives=5))
-for i in range(0,BRICK_LEVEL_1_NO):
-    brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=3))
 
-for i in range(0,BRICK_LEVEL_2_NO):
-    brick_level_2.append(Brick(BRICK_START_X_2[i] , BRICK_START_Y_2 , lives=2))
+def layout1():
+    global BRICK_LEVEL_1_NO 
+    global BRICK_LEVEL_2_NO 
+    global BRICK_LEVEL_3_NO 
+    global BRICK_LEVEL_4_NO 
+    global BRICK_START_Y_1 
+    global BRICK_START_X_1 
+    global BRICK_START_Y_2  
+    global BRICK_START_X_2  
+    global BRICK_START_Y_3
+    global BRICK_START_X_3  
+    global BRICK_START_Y_4 
+    global BRICK_START_X_4  
+    global UNBREAKABLE_X 
+    global UNBREAKABLE_Y
+    BRICK_LEVEL_1_NO = 4
+    BRICK_LEVEL_2_NO = 3
+    BRICK_LEVEL_3_NO = 1
+    BRICK_LEVEL_4_NO = 8
+    BRICK_START_Y_1 = 42
+    BRICK_START_X_1 = [23]
+    BRICK_START_Y_2 = 32
+    BRICK_START_X_2 = [21]
+    BRICK_START_Y_3 = 19
+    BRICK_START_X_3 = [31]
+    BRICK_START_Y_4 = 28
+    BRICK_START_X_4 = [15]
+    UNBREAKABLE_X = 5
+    UNBREAKABLE_Y = 42
+    brick_level_4.append(Brick(7,31,lives=5))
+    for i in range(1,BRICK_LEVEL_1_NO):
+        BRICK_START_X_1.append(BRICK_START_X_1[i-1] + 15)
 
-for i in range(0,BRICK_LEVEL_3_NO):
-    brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
+    for i in range(1,BRICK_LEVEL_2_NO):
+        BRICK_START_X_2.append(BRICK_START_X_2[i-1] + 15)
 
-for i in range(0, BRICK_LEVEL_4_NO-2):
-    if i == 1 or i == 2 or i==3 or i==4:
-         brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=5))
-    else:
-        brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
+    for i in range(1,BRICK_LEVEL_3_NO):
+        BRICK_START_X_3.append(BRICK_START_X_3[i-1] + 15)
+
+    for i in range(1,BRICK_LEVEL_4_NO-2):
+        BRICK_START_X_4.append(BRICK_START_X_4[i-1] + 8)
+
+    for i in range(0,BRICK_LEVEL_1_NO):
+        brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=3))
+
+    for i in range(0,BRICK_LEVEL_2_NO):
+        brick_level_2.append(Brick(BRICK_START_X_2[i] , BRICK_START_Y_2 , lives=2))
+
+    for i in range(0,BRICK_LEVEL_3_NO):
+        brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
+
+    for i in range(0, BRICK_LEVEL_4_NO-2):
+        if i == 1 or i == 2 or i==3 or i==4:
+            brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=5))
+        else:
+            brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
+        
+    brick_level_1.append(Brick(UNBREAKABLE_X , UNBREAKABLE_Y , lives=4))
+    brick_level_4.append(Brick(63,BRICK_START_Y_4+2,lives=5))
+    BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
+
+def layout2():
+    global BRICK_LEVEL_1_NO
+    global BRICK_LEVEL_2_NO
+    global BRICK_LEVEL_3_NO
+    global BRICK_LEVEL_4_NO
+    global BRICK_START_X_1
+    global BRICK_START_Y_1
+    global BRICK_START_Y_4
+    global BRICK_START_X_2
+    global BRICK_START_Y_2
+    global BRICK_START_X_3
+    global BRICK_START_X_4 
+    BRICK_LEVEL_1_NO = 3
+    BRICK_LEVEL_2_NO = 2
+    BRICK_LEVEL_3_NO = 1
+    BRICK_LEVEL_4_NO = 8
+    BRICK_START_Y_1 = 39
+    BRICK_START_X_1 = [25]
+    BRICK_START_X_2 = [23]
+    BRICK_START_X_3 = [31]
+    BRICK_START_X_4 = [15]
+    BRICK_START_Y_4 = 24
+    BRICK_START_Y_2 = 31
+    brick_level_4.append(Brick(7,27,lives=5))
+    for i in range(0 , BRICK_LEVEL_1_NO):
+        BRICK_START_X_1.append(BRICK_START_X_1[i-1] + 12)
     
-brick_level_1.append(Brick(UNBREAKABLE_X , UNBREAKABLE_Y , lives=4))
-brick_level_4.append(Brick(63,31,lives=5))
-BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
+    for i in range(0 , BRICK_LEVEL_2_NO):
+        BRICK_START_X_2.append(BRICK_START_X_2[i-1] + 10)
+    
+    for i in range(0 , BRICK_LEVEL_3_NO):
+        BRICK_START_X_3.append(BRICK_START_X_3[i-1] + 12)
 
+    for i in range(1,BRICK_LEVEL_4_NO-2):
+        BRICK_START_X_4.append(BRICK_START_X_4[i-1] + 8)
 
+    for i in range(0,BRICK_LEVEL_1_NO):
+        brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=2))
+
+    for i in range(0,BRICK_LEVEL_2_NO):
+        brick_level_2.append(Brick(BRICK_START_X_2[i] , BRICK_START_Y_2 , lives=3))
+
+    for i in range(0,BRICK_LEVEL_3_NO):
+        brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
+
+    for i in range(0, BRICK_LEVEL_4_NO-2):
+        if i == 1 or i == 2 or i==3 or i==4:
+            brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=5))
+        else:
+            brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
+        
+    brick_level_1.append(Brick(UNBREAKABLE_X , BRICK_START_Y_1 , lives=4))
+    brick_level_4.append(Brick(63,27,lives=5))
+    BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
+
+def switch_layouts(val , grid , ball , paddle):
+    global brick_level_1
+    global brick_level_2
+    global brick_level_3
+    global brick_level_4
+    for i in range(0 , BRICK_LEVEL_1_NO):
+        brick_level_1[i].clear_brick(grid)
+        brick_level_1[i].set_to_nan()
+        brick_level_1[i].kill()
+    for i in range(0 , BRICK_LEVEL_2_NO):
+        brick_level_2[i].clear_brick(grid)
+        brick_level_2[i].set_to_nan()
+        brick_level_2[i].kill()
+    for i in range(0 , BRICK_LEVEL_3_NO):
+        brick_level_3[i].clear_brick(grid)
+        brick_level_3[i].set_to_nan()
+        brick_level_3[i].kill()
+    for i in range(0 , BRICK_LEVEL_4_NO):
+        brick_level_4[i].clear_brick(grid)
+        brick_level_4[i].set_to_nan()
+        brick_level_4[i].kill()
+
+    brick_level_1 = []
+    brick_level_2 = []
+    brick_level_3 = []
+    brick_level_4 = []
+
+    powerups = get_powerup()
+    for powerup in powerups[:]:
+        if powerup.get_type() == "expand_paddle":
+            powerup.delete(paddle , grid, paddle)
+
+        if powerup.get_type() == "shrink_paddle":
+            powerup.delete(paddle , grid, paddle)
+
+        if powerup.get_type() == "fast_ball":
+            powerup.delete(ball[0] , grid, paddle)
+
+        if powerup.get_type() == "ball_multiplier":
+            powerup.delete(ball , grid, paddle)
+
+        if powerup.get_type() == "thru_ball":
+            powerup.delete(ball , grid, paddle)
+
+        if powerup.get_type() == "paddle_grab":
+            powerup.delete(ball , grid, paddle)
+
+    for i in range(0 , len(ball)):
+        ball[i].reset_ball(paddle , grid , ball)
+
+    if val == 2:
+        layout2()
+    if val == 1:
+        layout1()
+    
+cur_layout = 1
+layout1()
 while True:
 
     key = input_to(Get())
@@ -61,6 +215,14 @@ while True:
 
     if key == 'q':
         break
+
+    if key == 'z':
+        switch_layouts(1 , board.get_grid(), ball , paddle)
+        cur_layout = 1
+
+    if key == 'x':
+        switch_layouts(2 , board.get_grid(),  ball , paddle)
+        cur_layout = 2
 
     powerups = get_powerup()
     cnt_grab = 0
@@ -125,6 +287,7 @@ while True:
         total_lives = total_lives + brick_level_3[i].get_lives()
         for j in ball:
             brick_level_3[i].brick_ball_collisions(j , board.get_grid() , player , i , brick_level_3)
+    print(len(brick_level_4) , BRICK_LEVEL_4_NO)
     for i in range(0,BRICK_LEVEL_4_NO):
         brick_level_4[i].render_brick(board.get_grid())
         total_lives = total_lives + brick_level_4[i].get_lives()

@@ -56,6 +56,7 @@ class Powerup:
                     
                 obj = obj[:len(obj) - int(len(obj)/2)]
 
+
         self.active = -1
 
     def move_powerup(self , grid , obj , paddle):

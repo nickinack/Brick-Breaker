@@ -24,6 +24,22 @@ UNBREAKABLE_Y = 42
 powerup_class = []
 powerup_types = ["ball_multiplier" , "thru_ball" , "paddle_grab" , "expand_paddle" , "shrink_paddle" , "fast_ball"]
 
+def set_brick_level_1(val):
+    global BRICK_LEVEL_1_NO
+    BRICK_LEVEL_1_NO = val
+
+def set_brick_level_2(val):
+    global BRICK_LEVEL_2_NO
+    BRICK_LEVEL_2_NO = val
+
+def set_brick_level_3(val):
+    global BRICK_LEVEL_3_NO
+    BRICK_LEVEL_3_NO = val
+
+def set_brick_level_4(val):
+    global BRICK_LEVEL_4_NO
+    BRICK_LEVEL_4_NO = val
+
 def update_powerup(powerup , grid):
     global powerup_class
     powerup.render_powerup(grid)

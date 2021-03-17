@@ -78,6 +78,10 @@ class Brick(Object):
         for i in range(0 , len(self.brick)):
             for j in range(0 , len(self.brick[0])):
                 grid[self.get_y() + i][self.get_x() + j] = ' '
+                
+    def set_to_nan(self):
+        self.set_x('Nan')
+        self.set_y('Nan')
 
     def brick_ball_collisions(self , ball , grid , player , pos , brick_level):
         '''

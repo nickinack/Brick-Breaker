@@ -60,6 +60,18 @@ class Ball(Object):
 
     def get_shape(self):
         return self.__ball
+
+    def reset_ball(self , paddle , grid , ball):
+        grid[self.get_y()][self.get_x()] = ' '
+        self.set_xspeed(0)
+        self.set_yspeed(-1*self.get_yspeed())           
+        self.set_x(np.random.randint(PADDLE_POS_X , PADDLE_POS_X + paddle.get_length()))            
+        self.set_y(HEIGHT - BALL_POS_Y)
+        paddle.clear_paddle(grid)             
+        paddle.set_x(PADDLE_POS_X)             
+        paddle.set_y(PADDLE_POS_Y)
+        paddle.move_paddle(0 , grid , ball)
+
  
     def move_ball(self , grid , paddle_pos_x , paddle_size , paddle , player , powerups , ball, start = 0):
         '''
