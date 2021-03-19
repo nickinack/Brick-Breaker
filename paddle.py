@@ -14,6 +14,7 @@ class Paddle(Object):
         self.__speed = 2
         self.__paddle = "----------"
         self.move_ball = 0
+        self.type = "normal"
 
     def update_shape(self , grid , str):
         self.clear_paddle(grid)

@@ -18,7 +18,10 @@ class Player:
         self.__time = new_time
 
     def set_lives(self , new_life):
-        self.__lives = new_life
+        if  (new_life != -2 and new_life != -1):
+            self.__lives = new_life
+        if  (new_life == -1):
+            self.__lives = 0
 
     def get_score(self):
         return self.__score

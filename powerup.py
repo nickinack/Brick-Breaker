@@ -7,15 +7,18 @@ import time
 
 class Powerup:
 
-    def __init__(self , START_X , START_Y , powerup):
+    def __init__(self , START_X , START_Y , powerup , yspeed = 3 , xspeed = 0):
         self.x = START_X
-        self.y = HEIGHT - START_Y
+        self.y = START_Y
         self.type = powerup
-        self.yspeed = -2
+        self.yspeed = yspeed
+        self.xspeed = xspeed
+        self.acceleration = 2
         self.shape = 'P'
         self.active = 0
-        self.start_time = time.time()
-        self.time_limit = 15
+        self.start_time = round(time.time())
+        self.time_limit = 1000
+        self.active_time = round(time.time())
 
     def render_powerup(self , grid):
         grid[self.y][self.x] = self.shape
@@ -29,7 +32,6 @@ class Powerup:
     def delete(self , obj , grid , paddle):
 
         grid[self.y][self.x] = " "
-        grid[self.y + 2][self.x] = " "
 
         if self.active == 0:
             self.active = -1
@@ -61,8 +63,23 @@ class Powerup:
 
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '
-        new_y = self.y + 3
-        if (self.active == 2 and time.time() - self.start_time >= self.time_limit):
+        new_y = self.y + self.yspeed
+        new_x = self.x + self.xspeed
+        
+        if new_x > WIDTH-1 or new_x < 0:
+            self.xspeed = -1*self.xspeed
+        if new_y < 0:
+            self.yspeed = -1*self.yspeed
+        if HEIGHT-new_y <=1:
+            self.yspeed = -1*self.yspeed
+
+        if (self.type == "shooting_paddle" and self.active == 2 and round(time.time()) - self.start_time < self.time_limit):
+                ## append to ball list
+            if time.time() - self.active_time > 1:
+                self.active_time = time.time()
+                obj.append(Ball(int(paddle.get_x() + paddle.get_length()/2) , BALL_POS_Y , ball_type="shooting"))
+
+        if (self.active == 2 and round(time.time()) - self.start_time >= self.time_limit):
             if self.type == "expand_paddle":
                 obj.reshape_paddle(grid , "expand")
 
@@ -99,13 +116,21 @@ class Powerup:
             self.active = -1
             return
 
-        elif self.active != 0:
+        elif self.active == 1:
             self.make_change(grid , obj , paddle)
             self.active = 2
+            self.start_time = round(time.time())
+            if self.type == "shooting_paddle":
+                self.time_limit = 4
+            else:
+                self.time_limit = 15
             return
 
-        if self.active != -1:
+        if self.active != -1 and self.active != 2:
             self.y = new_y
+            self.x = new_x
+            if self.yspeed < 3:
+                self.yspeed = self.yspeed + self.acceleration
             grid[self.y][self.x] = self.shape
 
     def make_change(self, grid , obj , paddle):
@@ -129,11 +154,14 @@ class Powerup:
                 for _ in range(0 , ball_len):
                     obj.append(Ball(np.random.randint(40 , 50) , 24))
 
+
 class paddleGrab(Powerup):
 
-    def __init__(self , START_X , START_Y , powerup):
+    def __init__(self , START_X , START_Y , powerup , yspeed = 3 , xspeed = 0):
         super(paddleGrab , self).__init__(START_X , START_Y , powerup)
         self.time_limit = 8
+        self.yspeed = -1*yspeed
+        self.xspeed = xspeed
 
     def delete(self , obj , grid , paddle):
         grid[self.y][self.x] = " "
@@ -155,8 +183,13 @@ class paddleGrab(Powerup):
 
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '
-        new_y = self.y + 3
+        new_y = self.y - self.yspeed
+        new_x = self.x + self.xspeed
 
+        if new_x > WIDTH-1 or new_x < 0:
+            self.xspeed = -1*self.xspeed
+        if new_y < 0:
+            self.yspeed = -1*self.yspeed
         if self.active == -1:
             return
 
@@ -179,9 +212,14 @@ class paddleGrab(Powerup):
         elif self.active != 0:
             self.make_change(grid , obj , paddle)
             self.active = 2
+            self.start_time = time.time()
+            self.time_limit = 15
             return
 
         self.y = new_y
+        self.x = new_x
+        if self.yspeed < 4:
+            self.yspeed = self.yspeed - self.acceleration
         grid[self.y][self.x] = self.shape
 
     def make_change(self, grid , obj , paddle):
@@ -207,9 +245,11 @@ class paddleGrab(Powerup):
 
 class thruBall(Powerup):
 
-    def __init__(self , START_X , START_Y , powerup):
+    def __init__(self , START_X , START_Y , powerup , yspeed = 3 , xspeed = 0):
         super(thruBall , self).__init__(START_X , START_Y , powerup)
         self.time_limit = 15
+        self.yspeed = -1*yspeed
+        self.xspeed = xspeed
 
     def delete(self , obj , grid , paddle):
         grid[self.y][self.x] = " "
@@ -226,7 +266,13 @@ class thruBall(Powerup):
 
     def move_powerup(self , grid , obj , paddle):
         grid[self.y][self.x] = ' '
-        new_y = self.y + 3
+        new_y = self.y - self.yspeed
+        new_x = self.x + self.xspeed
+
+        if new_x > WIDTH-1 or new_x < 0:
+            self.xspeed = -1*self.xspeed
+        if new_y < 0:
+            self.yspeed = -1*self.yspeed
         if (self.active == 2 and time.time() - self.start_time >= self.time_limit):
             for j in range(0 , len(obj)):
                 obj[j].set_type('normal')
@@ -246,11 +292,16 @@ class thruBall(Powerup):
         elif self.active != 0:
             self.make_change(grid , obj , paddle)
             self.active = 2
+            self.start_time = time.time()
+            self.time_limit = 15
             return
 
         
 
         self.y = new_y
+        self.x = new_x
+        if self.yspeed < 4:
+            self.yspeed = self.yspeed - self.acceleration
         grid[self.y][self.x] = self.shape
 
     def make_change(self, grid , obj , paddle):
