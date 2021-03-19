@@ -131,7 +131,7 @@ class Brick(Object):
                 if ball.get_type() == 'thru':
                     player.set_score(player.get_score() + self.__score * 2)
                 self.clear_brick(grid)
-                choice = np.random.choice(powerup_types)
+                choice = "ball_multiplier"
                 if choice == 'paddle_grab':
                     update_powerup(paddleGrab(self.get_x() , self.get_y() , "paddle_grab" , ball.get_yspeed() , ball.get_xspeed()) , grid)
                 elif choice == 'thru_ball':

@@ -58,6 +58,9 @@ class Powerup:
                     
                 obj = obj[:len(obj) - int(len(obj)/2)]
 
+        if self.type == "shooting_paddle":
+            paddle.type = "normal"
+
 
         self.active = -1
 
@@ -102,6 +105,9 @@ class Powerup:
                     for i in range(0 , ind_len):
                         grid[obj[len(ind) - 1].get_y()][obj[len(ind) - 1].get_x()] = ' '
                         del obj[len(ind) - 1]
+
+            if self.type == "shooting_paddle":
+                paddle.type = "normal"
                         
             self.active = -1
             delete_powerup(self)
@@ -153,6 +159,9 @@ class Powerup:
                 ball_len = len(obj)
                 for _ in range(0 , ball_len):
                     obj.append(Ball(np.random.randint(40 , 50) , 24))
+
+            elif self.type == "shooting_paddle":
+                paddle.type = "shooting"
 
 
 class paddleGrab(Powerup):

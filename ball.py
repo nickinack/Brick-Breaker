@@ -182,7 +182,7 @@ class Ball(Object):
                         grid[i.y][i.x] = ' '
                     set_powerup()
 
-                return
+            return
 
         if new_x > WIDTH-1 or new_x < 0:
             self.set_xspeed(-1*self.get_xspeed())

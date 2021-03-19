@@ -149,6 +149,63 @@ def layout2():
     brick_level_4.append(Brick(63,27,lives=5))
     BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
 
+def layout3():
+    global BRICK_LEVEL_1_NO
+    global BRICK_LEVEL_2_NO
+    global BRICK_LEVEL_3_NO
+    global BRICK_LEVEL_4_NO
+    global BRICK_START_X_1
+    global BRICK_START_Y_1
+    global BRICK_START_Y_4
+    global BRICK_START_X_2
+    global BRICK_START_Y_2
+    global BRICK_START_X_3
+    global BRICK_START_X_4 
+    BRICK_LEVEL_1_NO = 2
+    BRICK_LEVEL_2_NO = 2
+    BRICK_LEVEL_3_NO = 2
+    BRICK_LEVEL_4_NO = 8
+    BRICK_START_Y_1 = 39
+    BRICK_START_X_1 = [25]
+    BRICK_START_X_2 = [23]
+    BRICK_START_X_3 = [31]
+    BRICK_START_X_4 = [15]
+    BRICK_START_Y_4 = 26
+    BRICK_START_Y_2 = 31
+    brick_level_4.append(Brick(7,27,lives=5))
+    for i in range(0 , BRICK_LEVEL_1_NO):
+        BRICK_START_X_1.append(BRICK_START_X_1[i-1] + 20)
+    
+    for i in range(0 , BRICK_LEVEL_2_NO):
+        BRICK_START_X_2.append(BRICK_START_X_2[i-1] + 13)
+    
+    for i in range(0 , BRICK_LEVEL_3_NO):
+        BRICK_START_X_3.append(BRICK_START_X_3[i-1] + 14)
+
+    for i in range(1,BRICK_LEVEL_4_NO-2):
+        BRICK_START_X_4.append(BRICK_START_X_4[i-1] + 8)
+
+    for i in range(0,BRICK_LEVEL_1_NO):
+        brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=2))
+
+    for i in range(0,BRICK_LEVEL_2_NO):
+        brick_level_2.append(Brick(BRICK_START_X_2[i] , BRICK_START_Y_2 , lives=3))
+
+    for i in range(0,BRICK_LEVEL_3_NO):
+        brick_level_3.append(Brick(BRICK_START_X_3[i] , BRICK_START_Y_3 , lives=1))
+
+    for i in range(0, BRICK_LEVEL_4_NO-2):
+        if i == 1 or i == 2 or i==3 or i==4:
+            brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=5))
+        else:
+            brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
+    
+    brick_level_3[0].set_type('rainbow')
+    brick_level_1.append(Brick(UNBREAKABLE_X , BRICK_START_Y_1 , lives=4))
+    brick_level_4.append(Brick(63,27,lives=5))
+    BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
+
+
 def switch_layouts(val , grid , ball , paddle):
     global brick_level_1
     global brick_level_2
@@ -199,6 +256,8 @@ def switch_layouts(val , grid , ball , paddle):
     for i in range(0 , len(ball)):
         ball[i].reset_ball(paddle , grid , ball)
 
+    if val == 3:
+        layout3()
     if val == 2:
         layout2()
     if val == 1:
@@ -219,12 +278,11 @@ while True:
         break
 
     if key == 'z':
-        switch_layouts(1 , board.get_grid(), ball , paddle)
-        cur_layout = 1
-
-    if key == 'x':
-        switch_layouts(2 , board.get_grid(),  ball , paddle)
-        cur_layout = 2
+        cur_layout = cur_layout+1
+        if cur_layout > 3:
+            game_over()
+            break
+        switch_layouts(cur_layout , board.get_grid(), ball , paddle)
 
     powerups = get_powerup()
     cnt_grab = 0
@@ -301,7 +359,6 @@ while True:
         total_lives = total_lives + brick_level_3[i].get_lives()
         for j in ball:
             brick_level_3[i].brick_ball_collisions(j , board.get_grid() , player , i , brick_level_3 , ball)
-    print(len(brick_level_4) , BRICK_LEVEL_4_NO)
     for i in range(0,BRICK_LEVEL_4_NO):
         brick_level_4[i].render_brick(board.get_grid())
         player.set_lives(brick_level_4[i].check_out(paddle))
@@ -314,7 +371,8 @@ while True:
     print(Fore.BLUE + "Lives Remaining: " , str(player.get_lives()))
     print(Fore.YELLOW + "Ball Speed: " , str(ball[0].get_yspeed()))
     for i in range(0 , len(powerups)):
-        print(powerups[i].type , powerups[i].active , time.time() - powerups[i].time_limit)
+        if powerups[i].active == 2:
+            print(powerups[i].type , "time remaining: " , round((time.time() - powerups[i].start_time) - powerups[i].time_limit))
 
     if player.get_lives() == 0:
         game_over()
@@ -329,5 +387,5 @@ while True:
             win()
             time.sleep(1)
             break
-    board.display(powerups)
+    board.display(powerups , paddle)
     
