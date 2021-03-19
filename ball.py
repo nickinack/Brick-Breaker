@@ -2,6 +2,7 @@ from headers import *
 import numpy as np
 from object import *
 from colorama import Fore, Back, Style
+import os
 
 class Ball(Object):
 
@@ -19,6 +20,9 @@ class Ball(Object):
         self.__type = ball_type
         self.storage_xspeed = 0
         self.storage_yspeed = 3
+        if self.__type == "boss":
+            self.speed_x = -3
+            self.__ball = '§'
 
     def get_xspeed(self):
         return self.__speed_x
@@ -91,7 +95,7 @@ class Ball(Object):
             '''
             Handle When it hits the paddle; reflect
             '''
-
+            os.system('afplay paddle_ball.mp3 &')
             x_reflect = (self.get_x() - paddle_pos_x) 
             if x_reflect < paddle_size/2 and paddle.move_ball != 1 and self.__type == "normal":
                 self.set_xspeed(int(-1*(paddle_size/2 - x_reflect)))
@@ -125,6 +129,54 @@ class Ball(Object):
         if new_y <= 0:
             self.set_yspeed(-1*self.get_yspeed())
 
+        elif new_y >= HEIGHT-PADDLE_POS_Y and paddle.get_x() <= self.get_x() and paddle.get_x() + paddle.get_length() >= self.get_x() and self.__type == "boss":
+            paddle.clear_paddle(grid)             
+            paddle.set_x(PADDLE_POS_X)             
+            paddle.set_y(PADDLE_POS_Y)
+            grid[self.get_y()][self.get_x()] = ' '
+            paddle.move_paddle(0 , grid , ball)
+            player.set_lives(player.get_lives() - 1)
+            for i in powerups[:]:
+                if i.get_type() == "expand_paddle":
+                    i.delete(paddle , grid , paddle)
+                    on_clear(i , paddle , grid , paddle)
+
+                elif i.get_type() == "shrink_paddle":
+                    i.delete(paddle , grid , paddle)
+                    on_clear(i , paddle , grid , paddle)
+
+                elif i.get_type() == "fast_ball":
+                    i.delete(self , grid , paddle)
+                    on_clear(i , self , grid , paddle)
+
+                elif i.get_type() == "ball_multiplier":
+                    i.delete(ball , grid , paddle)
+                    on_clear(i , self , grid , paddle)
+
+                elif i.get_type() == "thru_ball":
+                    i.delete(ball , grid , paddle)
+                    on_clear(i , self , grid , paddle)
+
+                elif i.get_type() == "shooting_paddle":
+                    i.delete(ball , grid , paddle)
+                grid[i.y][i.x] = ' '
+            set_powerup()
+            for i in ball[:]:
+                if i.get_type() == "boss":
+                    grid[i.get_y()][i.get_x()] = ' '
+                    ball.remove(i)
+            return
+
+        elif new_y >= HEIGHT-PADDLE_POS_Y and self.__type == "boss":
+            grid[self.get_y()][self.get_x()] = ' '
+            ball.remove(self)
+            for i in ball[:]:
+                if i.get_type() == "boss":
+                    grid[i.get_y()][i.get_x()] = ' '
+                    ball.remove(i)
+            return
+
+
         elif new_y >= HEIGHT-PADDLE_POS_Y and paddle.get_x() <= self.get_x() and paddle.get_x() + paddle.get_length() >= self.get_x():
             self.set_yspeed(-1*self.get_yspeed())
 
@@ -132,7 +184,7 @@ class Ball(Object):
             grid[self.get_y()][self.get_x()] = ' '
             cnt_normal = 0
             for i in range(0 , len(ball)):
-                if ball[i].get_type() != "shooting":
+                if ball[i].get_type() == "normal":
                     cnt_normal = cnt_normal + 1
             len_ball = len(ball)
             if cnt_normal > 1:
@@ -141,7 +193,7 @@ class Ball(Object):
                 flag = 0
                 ball_ind = -1
                 for i in range(0 , len(ball)):
-                    if ball[i].get_type() != "shooting":
+                    if ball[i].get_type() == "normal":
                         ball_ind = i
                 if ball[ball_ind].get_y() + ball[ball_ind].get_yspeed() != new_y:
                     flag = 1
@@ -181,6 +233,10 @@ class Ball(Object):
                             i.delete(ball , grid , paddle)
                         grid[i.y][i.x] = ' '
                     set_powerup()
+                    for i in ball[:]:
+                        if i.get_type() == "boss":
+                            grid[i.get_y()][i.get_x()] = ' '
+                            ball.remove(i)
 
             return
 

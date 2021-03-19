@@ -1,4 +1,5 @@
 import numpy as np
+import os
 
 HEIGHT = 44
 WIDTH = 90
@@ -69,6 +70,7 @@ def explode(brick_level , grid , i , visited):
 
     visited[i] = 1
     if brick_level[i].get_y() != 'Nan' and brick_level[i].get_x() != 'Nan':
+        os.system('afplay explode.mp3 &')
         brick_level[i].clear_brick(grid)
         brick_level[i].set_x('Nan')
         brick_level[i].set_y('Nan')
@@ -76,6 +78,7 @@ def explode(brick_level , grid , i , visited):
 
     if i-1 >= 0:
         if brick_level[i-1].get_y() != 'Nan' and brick_level[i-1].get_x() != 'Nan':
+            os.system('afplay explode.mp3 &')
             brick_level[i-1].clear_brick(grid)
             brick_level[i-1].set_x('Nan')
             brick_level[i-1].set_y('Nan')
@@ -84,6 +87,7 @@ def explode(brick_level , grid , i , visited):
 
     if i+1 <= BRICK_LEVEL_4_NO-1 :
         if brick_level[i+1].get_y() != 'Nan' and brick_level[i+1].get_x() != 'Nan':
+            os.system('afplay explode.mp3 &')
             brick_level[i+1].clear_brick(grid)
             brick_level[i+1].set_x('Nan')
             brick_level[i+1].set_y('Nan')

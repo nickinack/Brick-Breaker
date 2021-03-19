@@ -53,6 +53,8 @@ class Powerup:
         if self.type == "ball_multiplier" and self.active == 2:
             if len(obj) > 1:
                 for i in range(int(len(obj)/2) , len(obj)):
+                    if i>=len(obj):
+                        return
                     grid[obj[i].get_y()][obj[i].get_x()] = ' '
                     del obj[i]
                     
@@ -79,6 +81,7 @@ class Powerup:
         if (self.type == "shooting_paddle" and self.active == 2 and round(time.time()) - self.start_time < self.time_limit):
                 ## append to ball list
             if time.time() - self.active_time > 1:
+                os.system('afplay laser.mp3 &')
                 self.active_time = time.time()
                 obj.append(Ball(int(paddle.get_x() + paddle.get_length()/2) , BALL_POS_Y , ball_type="shooting"))
 

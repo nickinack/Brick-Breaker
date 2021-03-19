@@ -161,7 +161,7 @@ def layout3():
     global BRICK_START_Y_2
     global BRICK_START_X_3
     global BRICK_START_X_4 
-    BRICK_LEVEL_1_NO = 2
+    BRICK_LEVEL_1_NO = 1
     BRICK_LEVEL_2_NO = 2
     BRICK_LEVEL_3_NO = 2
     BRICK_LEVEL_4_NO = 8
@@ -186,7 +186,7 @@ def layout3():
         BRICK_START_X_4.append(BRICK_START_X_4[i-1] + 8)
 
     for i in range(0,BRICK_LEVEL_1_NO):
-        brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=2))
+        brick_level_1.append(Brick(BRICK_START_X_1[i] , BRICK_START_Y_1 , lives=2 , type="boss"))
 
     for i in range(0,BRICK_LEVEL_2_NO):
         brick_level_2.append(Brick(BRICK_START_X_2[i] , BRICK_START_Y_2 , lives=3))
@@ -201,7 +201,7 @@ def layout3():
             brick_level_4.append(Brick(BRICK_START_X_4[i] , BRICK_START_Y_4 , lives=2))
     
     brick_level_3[0].set_type('rainbow')
-    brick_level_1.append(Brick(UNBREAKABLE_X , BRICK_START_Y_1 , lives=4))
+    brick_level_1.append(Brick(UNBREAKABLE_X , BRICK_START_Y_1-5 , lives=4))
     brick_level_4.append(Brick(63,27,lives=5))
     BRICK_LEVEL_1_NO = BRICK_LEVEL_1_NO + 1
 
@@ -265,14 +265,23 @@ def switch_layouts(val , grid , ball , paddle):
     
 cur_layout = 1
 layout1()
+start_time = time.time()
 while True:
-
+    if cur_layout == 3 and round(time.time() - start_time) >= 2 and brick_level_1[0].get_lives() > 0:
+        start_time = time.time()
+        ball.append(Ball(brick_level_1[0].get_x()+2 , BRICK_START_Y_1 , ball_type="boss"))
     key = input_to(Get())
     if key == 'a':
-        paddle.move_paddle(-1 , board.get_grid() , ball[0])
+        if cur_layout != 3:
+            paddle.move_paddle(-1 , board.get_grid() , ball[0])
+        if cur_layout == 3:
+            paddle.move_paddle(-1 , board.get_grid() , ball[0] , brick_level_1[0])
 
     if key == 'd':
-        paddle.move_paddle(1 , board.get_grid() , ball[0])
+        if cur_layout != 3:
+            paddle.move_paddle(1 , board.get_grid() , ball[0])
+        if cur_layout == 3:
+            paddle.move_paddle(1 , board.get_grid() , ball[0] , brick_level_1[0])
 
     if key == 'q':
         break

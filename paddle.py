@@ -46,7 +46,7 @@ class Paddle(Object):
     def get_length(self):
         return len(self.__paddle)
 
-    def move_paddle(self , direction , grid , ball):
+    def move_paddle(self , direction , grid , ball , boss_brick = ''):
         '''
         Move paddle when key stroke is hit
         '''
@@ -58,10 +58,15 @@ class Paddle(Object):
             return grid
 
         else:
-
             self.clear_paddle(grid)
             new_x = self.get_x() + direction*self.__speed
             self.set_x(new_x)
+            if (boss_brick != ''):
+                if (boss_brick.get_type() == "boss"):
+                    boss_brick.clear_brick(grid)
+                    boss_brick.set_x(new_x)
+                    if boss_brick.get_lives() > 0:
+                        boss_brick.render_brick(grid)
             for i in range(self.get_x() , self.get_x() + len(self.__paddle)):
             #Move paddle
                 grid[HEIGHT - PADDLE_POS_Y][i] = self.__paddle[i - self.get_x()]

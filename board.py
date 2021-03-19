@@ -40,6 +40,8 @@ class Board:
                     print(Back.RED + self.__grid[i][j],end='')
                 elif self.__grid[i][j] == "-" and paddle.type != "normal":
                     print(Back.BLUE + self.__grid[i][j],end='')
+                elif (self.__grid[i][j] == "±" or self.__grid[i][j] == "/" or self.__grid[i][j] == "\\"):
+                    print(Back.MAGENTA + ' ',end='')
                 elif (self.__grid[i][j] == '1'):
                     print(Back.YELLOW + '+',end='')
                 elif (self.__grid[i][j] == '2'):

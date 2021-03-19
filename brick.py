@@ -6,14 +6,14 @@ from powerup import *
 
 class Brick(Object):
 
-    def __init__(self , POS_X , POS_Y , lives):
+    def __init__(self , POS_X , POS_Y , lives , type="normal"):
         '''
         Initialise positions of the brick
         '''
         super(Brick, self).__init__(POS_X , HEIGHT - POS_Y)
         self.__lives = lives
         self.__color = Fore.BLACK
-        self.__type = 'normal'
+        self.__type = type
         if lives == 3:
             self.__color = Back.GREEN
         elif lives == 2:
@@ -24,13 +24,23 @@ class Brick(Object):
             self.color = Back.MAGENTA
         elif lives == 5:
             self.color = Back.RED
-        self.brick = list((
-                ("++++++++"),
-                ("++++++++"),
-                ("++++++++")
-        ))
+        self.xspeed = 0 
+        if self.__type == "boss":
+            self.brick = list((
+                                (" ±±± "),
+                                (" / \ "),
+                                (" ±±± ")
+            ))
+            self.__lives = 3
+        else:
+            self.brick = list((
+                    ("++++++++"),
+                    ("++++++++"),
+                    ("++++++++")
+            ))
         if lives == 5:
             self.brick = list((
+                ("EEEEEEEE"),
                 ("EEEEEEEE"),
                 ("EEEEEEEE")
             ))
@@ -82,13 +92,17 @@ class Brick(Object):
         '''
         Render the brick on the screen
         '''
-        if self.get_x() == 'Nan' and self.get_y() == 'Nan':
+        if self.get_x() == 'Nan' or self.get_y() == 'Nan':
             return
         
-        self.update_brick()
-        for i in range(0 , len(self.brick)):
-            for j in range(0 , len(self.brick[0])):
-                grid[self.get_y() + i][self.get_x() + j] = self.__lives
+        elif self.__type != "boss":
+            for i in range(0 , len(self.brick)):
+                for j in range(0 , len(self.brick[0])):
+                    grid[self.get_y() + i][self.get_x() + j] = self.__lives
+        else:
+            for i in range(0 , len(self.brick)):
+                for j in range(0 , len(self.brick[0])):
+                    grid[self.get_y() + i][self.get_x() + j] = self.brick[i][j]
 
     def clear_brick(self , grid):
         '''
@@ -108,18 +122,21 @@ class Brick(Object):
         '''
         Check for brick ball collissions
         '''
+        if ball.get_type() == "boss":
+            return
         x = 0
-        if self.get_x() == 'Nan' and self.get_y() == 'Nan':
+        if self.get_x() == 'Nan' or self.get_y() == 'Nan':
             return
 
         if ball.get_y() - self.get_y() - len(self.brick) <= abs(ball.get_yspeed()) and ball.get_y() - self.get_y() - len(self.brick) >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x() and ball.get_yspeed() < 0:
             '''
             Invert the ball in -y direction
             '''
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             x = 1
             player.set_score(player.get_score() + self.__score)
@@ -145,10 +162,11 @@ class Brick(Object):
 
         elif ((self.get_x() - ball.get_x() >= 0 and self.get_x() - ball.get_x() <= 2) or (ball.get_x() - self.get_x() - len(self.brick[0]) >=0 and ball.get_x() - self.get_x() - len(self.brick[0]) <= 2))  and self.get_y() <= ball.get_y() and self.get_y() + len(self.brick) >= ball.get_y():
             x = 3
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
@@ -178,9 +196,10 @@ class Brick(Object):
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             x = 2
+            os.system('afplay collide.mp3 &')
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
             if self.__lives == 5:
@@ -206,10 +225,11 @@ class Brick(Object):
             '''
             Deflect in x axis
             '''
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             x = 4
             player.set_score(player.get_score() + self.__score)
@@ -238,10 +258,11 @@ class Brick(Object):
             '''
             Deflect in y axis
             '''
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             x = 5
             player.set_score(player.get_score() + self.__score)
@@ -269,10 +290,11 @@ class Brick(Object):
             '''
             Deflect in y axis
             '''
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             x = 6
             player.set_score(player.get_score() + self.__score)
@@ -297,10 +319,11 @@ class Brick(Object):
             ball.set_yspeed(-1*ball.get_yspeed())
 
         elif (((ball.get_y() - self.get_y() <= 2) and (ball.get_y() - self.get_y()  >= 0)) and (abs(ball.get_x() - self.get_x() - len(self.brick[0])) <= 1) and ball.get_yspeed() < 0):
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
@@ -324,10 +347,11 @@ class Brick(Object):
             ball.set_yspeed(-1*ball.get_yspeed())
 
         elif ((self.get_y() - ball.get_y() <= abs(ball.get_yspeed()) and self.get_y() - ball.get_y() >= 0 and self.get_x() <= ball.get_x() and self.get_x() + len(self.brick[0]) >= ball.get_x())):
+            os.system('afplay collide.mp3 &')
             if ball.get_type() == "shooting":
                 balls.remove(ball)
                 grid[ball.get_y()][ball.get_x()] = ' '
-            if ball.get_type() != "shooting":
+            if ball.get_type() != "shooting" and self.__type != "boss":
                 self.set_type('normal')
             player.set_score(player.get_score() + self.__score)
             self.change_lives()
